@@ -1,0 +1,14 @@
+{
+  "name": "mqtt-noise-monitor",
+  "version": "1.0.0",
+  "description": "MQTT-based noise level monitor using arecord",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "mqtt": "^4.3.7"
+  },
+  "author": "",
+  "license": "Apache-2.0"
+}

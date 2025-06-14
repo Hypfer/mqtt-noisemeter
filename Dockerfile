@@ -1,18 +1,25 @@
-FROM python:3.11-slim
+FROM node:20-slim
 
-# Install system dependencies for audio
-RUN apt-get update && apt-get install -y \
-    libasound2-dev \
-    libportaudio2 \
-    libportaudiocpp0 \
-    portaudio19-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Install alsa-utils for arecord
+RUN apt-get update && apt-get install -y alsa-utils && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+# Create app directory
+WORKDIR /usr/src/app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm ci --only=production
 
-COPY main.py .
+# Copy source code
+COPY src/ ./src/
 
-CMD ["python", "main.py"]
+# Make main app executable
+RUN chmod +x src/app.js
+
+# Default environment variables
+ENV MQTT_HOST=localhost
+ENV AUDIO_DEVICE=default
+ENV SAMPLE_RATE=48000
+ENV DEVICE_NAME="Docker Noise Meter"
+
+CMD ["npm", "start"]
