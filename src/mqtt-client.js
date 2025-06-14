@@ -84,7 +84,7 @@ class MqttClient {
             const status = data.overruns > 0 ? ` (overruns: ${data.overruns})` : '';
             const logMsg = `Published: min=${data.min_db.toFixed(1)}dB, max=${data.max_db.toFixed(1)}dB, avg=${data.avg_db.toFixed(1)}dB, median=${data.median_db.toFixed(1)}dB`;
 
-            logger.info(logMsg + status);
+            logger.debug(logMsg + status);
         }
     }
 
