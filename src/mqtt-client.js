@@ -53,6 +53,7 @@ class MqttClient {
                 state_topic: `${this.config.mqttTopicPrefix}/${this.config.deviceId}/${sensor.name}`,
                 unit_of_measurement: 'dB',
                 device_class: 'sound_pressure',
+                state_class: 'measurement',
                 icon: sensor.icon,
                 device: {
                     identifiers: [this.config.deviceId],
